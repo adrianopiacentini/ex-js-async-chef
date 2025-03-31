@@ -12,11 +12,20 @@ const getChefBirthday = async (id) => {
         throw new Error(`Errore nel fetch della ricetta con id ${id}`)
     }
 
-    if(recipe.message){
+    if (recipe.message) {
         throw new Error(recipe.message)
     }
+
+    let chef;
+    try {
+        chef = await fetchJson(`https://dummyjson.com/users/${recipe.userId}`)
+    } catch (error) {
+        throw new Error(`Errore nel fetch dello chef con userId ${recipe.userId}`)
+    }
     
-    const chef = await fetchJson(`https://dummyjson.com/users/${recipe.userId}`)
+    if (recipe.message) {
+        throw new Error(recipe.message)
+    }
     return (chef.birthDate)
 }
 
